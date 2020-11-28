@@ -1,5 +1,4 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import "./style.css";
 

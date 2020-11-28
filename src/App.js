@@ -8,6 +8,9 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import SignIn from "./components/signIn";
 import AddMovie from "./components/AddMovie";
+import MovieDetails from "./components/MovieDetails";
+//Router
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   const [ListOfMovies, setListOfMovies] = useState([
@@ -23,7 +26,7 @@ function App() {
         edit: false,
       },
       id: "1",
-      watched: false,
+      trailerlink:"https://www.youtube.com/embed/rBxcF-r9Ibs"
     },
     {
       title: "joker",
@@ -37,8 +40,8 @@ function App() {
         edit: false,
       },
       id: "2",
-      watched: false,
-    },
+      trailerlink:"https://www.youtube.com/embed/t433PEQGErc"
+      },
     {
       title: "Pirates Of the caribbean",
       description:
@@ -51,8 +54,8 @@ function App() {
         edit: false,
       },
       id: "3",
-      watched: false,
-    },
+      trailerlink:"https://www.youtube.com/embed/DRiDBQtIAnQ"
+      },
     {
       title: "Dachra",
       description:
@@ -66,8 +69,8 @@ function App() {
         edit: false,
       },
       id: "4",
-      watched: false,
-    },
+      trailerlink:"https://www.youtube.com/embed/a5_WTF7KtYQ"
+      },
     {
       title: "Avatar",
       description:
@@ -81,8 +84,8 @@ function App() {
         edit: false,
       },
       id: "5",
-      watched: false,
-    },
+      trailerlink:"https://www.youtube.com/embed/O1CzgULNRGs"
+      },
     {
       title: "The Three Musketeers",
       description:
@@ -96,8 +99,8 @@ function App() {
         edit: false,
       },
       id: "6",
-      watched: false,
-    },
+      trailerlink:"https://www.youtube.com/embed/TYic5JxgTMc"
+      },
     {
       title: "X-MEN",
       description:
@@ -111,8 +114,8 @@ function App() {
         edit: false,
       },
       id: "7",
-      watched: false,
-    }
+      trailerlink:"https://www.youtube.com/embed/d3QtaBWk--w"
+      },
   ]);
 
   const modification = (modif) =>
@@ -145,36 +148,29 @@ function App() {
   };
   const handleRemove = (id) =>
     setListOfMovies(ListOfMovies.filter((el) => el.id !== id));
-  const handlemovie = (id) =>
-    setListOfMovies(
-      ListOfMovies.map((movie) =>
-        movie.id === id
-          ? {
-              title: movie.title,
-              description: movie.description,
-              posterUrl: movie.posterUrl,
-              rate: movie.rate,
-              id: movie.id,
-              watched: !movie.watched,
-            }
-          : movie
-      )
-    );
 
   return (
     <div className="App">
-      <NavBar />
-      <Filter searchbytitle={searchbytitle} searchbyrate={searchbyrate} />
-      <MovieList
-        ListOfMovies={ListOfMovies}
-        handleRemove={handleRemove}
-        handlemovie={handlemovie}
-        search={search}
-        ratefiltring={ratefiltring}
-      />
-      <AddMovie modification={modification} />
-      <SignIn />
-      <Footer />
+      <Switch>
+        <Route exact path="/">
+          <NavBar />
+          <Filter searchbytitle={searchbytitle} searchbyrate={searchbyrate} />
+          <MovieList
+            ListOfMovies={ListOfMovies}
+            handleRemove={handleRemove}
+            search={search}
+            ratefiltring={ratefiltring}
+          />
+          <AddMovie modification={modification} />
+          <SignIn />
+          <Footer />
+        </Route>
+        <Route
+          path="/:title"
+          render={(props) => <MovieDetails data={ListOfMovies} {...props} />}
+        />
+        
+      </Switch>
     </div>
   );
 }

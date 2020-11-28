@@ -2,12 +2,9 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import PropTypes from "prop-types";
 
-const MovieCard = ({ movie, handleRemove, handlemovie }) => {
+const MovieCard = ({ movie, handleRemove }) => {
   const handleClick = () => {
     return handleRemove(movie.id);
-  };
-  const iswatched = () => {
-    return handlemovie(movie.id);
   };
 
   return (
@@ -17,16 +14,10 @@ const MovieCard = ({ movie, handleRemove, handlemovie }) => {
         <h1 className="title"> {movie.title} </h1>
         <h3 className="text"> {movie.description}</h3>
         <ReactStars {...movie.rate} classNames="rating" />
-        <div className="btns">
-        <button className="btnmovie" onClick={iswatched}>
-          {" "}
-          {movie.watched ? "Watched" : "Watch"}{" "}
-        </button>
         <button className="btnmovie" onClick={handleClick}>
           {" "}
           Delete{" "}
         </button>
-        </div>
       </div>
     </div>
   );
@@ -38,7 +29,6 @@ MovieCard.propTypes = {
   posterURl: PropTypes.string,
   rate: PropTypes.object,
   handleRemove: PropTypes.func,
-  handlemovie: PropTypes.func,
 };
 
 export default MovieCard;

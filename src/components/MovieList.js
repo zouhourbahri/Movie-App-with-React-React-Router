@@ -1,10 +1,11 @@
 import React from "react";
 import MovieCard from "./MovieCard";
+import { Link } from "react-router-dom";
+
 
 const MovieList = ({
   ListOfMovies,
   handleRemove,
-  handlemovie,
   search,
   ratefiltring,
 }) => {
@@ -16,12 +17,12 @@ const MovieList = ({
             movie.title.toLowerCase().includes(search.toLowerCase()) &&
             movie.rate.value >= ratefiltring
         ).map((movie) => (
+          <Link key={movie.id} to ={`/${movie.title}`}>
           <MovieCard
-            key={movie.id}
             movie={movie}
             handleRemove={handleRemove}
-            handlemovie={handlemovie}
           />
+          </Link>
         ))}
       </div>
     </div>
